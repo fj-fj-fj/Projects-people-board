@@ -20,12 +20,20 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
 #                   --------------------------------------Leader
 class Boss(models.Model):
     """Model representing a leader"""
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    project_completed = models.PositiveSmallIntegerField(blank=True, default=0)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True, verbose_name='юзернэйм'
+    )
+    project_completed = models.PositiveSmallIntegerField(
+        'Успешно завершенные проэкты', blank=True, default=0
+    )
 
     def get_count_succesful_projects(self):
         """Returns number of successfully completed projects"""
@@ -33,6 +41,10 @@ class Boss(models.Model):
 
     def __str__(self):
         return self.user.username
+                
+    class Meta:
+        verbose_name = 'Руководитель'
+        verbose_name_plural = 'Руководители'
 
 
 #                   ------------------------------------Employee
@@ -48,9 +60,17 @@ class Employee(models.Model):
     # 
     # level = models.CharField(max_length=1, choices=Level.choices, default=Level.TRAINEE)
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    leader = models.ForeignKey(Boss, blank=True, null=True, on_delete=models.CASCADE, related_name='subordinates')
-    project = models.ForeignKey('Project', blank=True, null=True, on_delete=models.CASCADE, related_name='employees')
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True, verbose_name='юзернэйм'
+    )
+    leader = models.ForeignKey(
+        Boss, blank=True, null=True, on_delete=models.CASCADE, 
+        related_name='subordinates', verbose_name='Руководители'
+    )
+    project = models.ForeignKey(
+        'Project', blank=True, null=True, on_delete=models.CASCADE, 
+        related_name='employees', verbose_name='Учавствует в проэкте'
+    )
 
     def get_position(self):
         """Returns employee position (trainee, junior, middle or senior)"""
@@ -59,21 +79,32 @@ class Employee(models.Model):
     def __str__(self):
         return self.user.username
 
+    class Meta:
+        verbose_name = 'Сотрудник'
+        verbose_name_plural = 'Сотрудники'
+
 
 #                   -------------------------------------Project
 class Project(models.Model):
     """Model representing a project"""
 
-    title = models.CharField(max_length=100, db_index=True)
+    title = models.CharField('Название', max_length=100, db_index=True)
     slug = AutoSlugField(populate_from='title')
-    description = models.TextField(blank=True)
-    heads = models.ManyToManyField(Boss, blank=True, through=Employee, related_name='projects')
+    description = models.TextField('Описание', blank=True)
+    heads = models.ManyToManyField(
+        Boss, blank=True, through=Employee, 
+        related_name='projects', verbose_name='Руководители проэкта'
+    )
     
     def get_absolute_url(self, slug):
         return reverse('detail_view', kwargs=('slug', self.slug))
     
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'Проэкт'
+        verbose_name_plural = 'Проэкты'
 
 
 

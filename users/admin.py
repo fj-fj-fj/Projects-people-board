@@ -29,7 +29,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
     list_display = ['title', 'description', get_facking_heads]
 
-    get_facking_heads.short_description = 'heads'
+    get_facking_heads.short_description = 'Руководители'
 
 
 class MembershipInline(admin.StackedInline):
