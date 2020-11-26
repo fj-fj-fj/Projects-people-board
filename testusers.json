@@ -1,0 +1,572 @@
+[
+{
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$sEbIGVWVm4Xi$U8BGIsn8k1nJV5SU2jRFw2CiQv1hmnMlpxstyxMPmqs=",
+        "last_login": "2020-11-25T12:26:38.763Z",
+        "is_superuser": false,
+        "username": "jun0",
+        "first_name": "",
+        "last_name": "",
+        "email": "j0@j.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-24T22:47:38.203Z",
+        "is_boss": false,
+        "is_employee": true,
+        "slug": "slug-none",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$MoxNn8U9ZQZR$T1i2luVjyF54rMjQ32hJxbLCmQ4uD/n1EBlX8VnciHc=",
+        "last_login": "2020-11-25T12:29:45.552Z",
+        "is_superuser": false,
+        "username": "jun1",
+        "first_name": "",
+        "last_name": "",
+        "email": "j1@j.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-25T12:29:45.277Z",
+        "is_boss": false,
+        "is_employee": true,
+        "slug": "slug-none",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$yh0pVBFAbdk3$Asdkt8tWmOeiDcWVEVmz6kZfSEwIuJyvS9MriNUd4QA=",
+        "last_login": "2020-11-25T14:42:37.139Z",
+        "is_superuser": false,
+        "username": "jun4",
+        "first_name": "",
+        "last_name": "",
+        "email": "j4@j.ju",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-25T14:42:36.882Z",
+        "is_boss": false,
+        "is_employee": true,
+        "slug": "slug-none",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$9hXFYdLpTM9f$JKiHYUoV4AHnaTjhvTYVLeT/Q3IxHSRriw4WHCPmbLA=",
+        "last_login": "2020-11-25T14:46:58.420Z",
+        "is_superuser": false,
+        "username": "jun5",
+        "first_name": "",
+        "last_name": "",
+        "email": "j5@j.ju",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-25T14:46:58.141Z",
+        "is_boss": false,
+        "is_employee": true,
+        "slug": "slug-none",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 12,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$vQXw6zyhNCsl$Kto9zsrMtYhBgLzm1aWP+n4h3gj5hSoS6djMC+sCU6Y=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "emloyee0",
+        "first_name": "",
+        "last_name": "",
+        "email": "e0@e.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-25T17:20:20.230Z",
+        "is_boss": false,
+        "is_employee": true,
+        "slug": "slug-none",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 16,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$vOLp0M03ZGQb$tjMGZrK6ErpKtR857m+2NJeKhAbDz2Q3tFbtfh4PCZE=",
+        "last_login": "2020-11-25T20:37:56.665Z",
+        "is_superuser": false,
+        "username": "jun6",
+        "first_name": "",
+        "last_name": "",
+        "email": "j6@j.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-25T20:37:56.397Z",
+        "is_boss": false,
+        "is_employee": true,
+        "slug": "slug-none",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 17,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$iAA2b8sckMo2$NZxhYy1Fa/2tZx5ISW06CjFUxA1yzn9ubsR3MEYWczU=",
+        "last_login": "2020-11-26T14:57:21.794Z",
+        "is_superuser": false,
+        "username": "employee1",
+        "first_name": "",
+        "last_name": "",
+        "email": "em1@e.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-26T14:57:21.514Z",
+        "is_boss": false,
+        "is_employee": true,
+        "slug": "employee1",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 18,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$AysxhlBwo4Rc$j8HakpBEGzAi9kyANa6RKZFzx3ftlPNDm/zvLynZ2OI=",
+        "last_login": "2020-11-26T14:59:31.338Z",
+        "is_superuser": false,
+        "username": "head1",
+        "first_name": "",
+        "last_name": "",
+        "email": "h1@h.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-26T14:59:31.058Z",
+        "is_boss": true,
+        "is_employee": false,
+        "slug": "head1",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 19,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$zYqNVoCIC22J$p4b3snQTCW+i27FEj7PEbnXEr7FHgX38EJDklw3UWaQ=",
+        "last_login": "2020-11-26T15:00:01.390Z",
+        "is_superuser": false,
+        "username": "head2",
+        "first_name": "",
+        "last_name": "",
+        "email": "h2@h.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-26T15:00:01.138Z",
+        "is_boss": true,
+        "is_employee": false,
+        "slug": "head2",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 20,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$XTMlgo6YoHZ8$/qZ9kTyjkj56xG6vR4mF0mAduuDn1bbu4AuGyz1TdhU=",
+        "last_login": "2020-11-26T15:00:30.895Z",
+        "is_superuser": false,
+        "username": "head3",
+        "first_name": "",
+        "last_name": "",
+        "email": "h3@h.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-26T15:00:30.636Z",
+        "is_boss": true,
+        "is_employee": false,
+        "slug": "head3",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 21,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$I8ViggRzLGSa$InT5qEtnTQReqPpRrvSvIi+DVF/TxwywZAPEf6c/vYQ=",
+        "last_login": "2020-11-26T15:01:01.473Z",
+        "is_superuser": false,
+        "username": "head4",
+        "first_name": "",
+        "last_name": "",
+        "email": "h4@h.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-26T15:01:01.216Z",
+        "is_boss": true,
+        "is_employee": false,
+        "slug": "head4",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 22,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$zXkEKA0HtJKB$iyMs+KsYvzEpt9TMOYTzdK/cYONPODxoCbc1p9aoyHc=",
+        "last_login": "2020-11-26T15:01:38.745Z",
+        "is_superuser": false,
+        "username": "head5",
+        "first_name": "",
+        "last_name": "",
+        "email": "h5@h.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-26T15:01:38.491Z",
+        "is_boss": true,
+        "is_employee": false,
+        "slug": "head5",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 23,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$ozQHyCfMIOPG$ZCxa3Su22IZ/MPeFTq9cM0eRlwqpr6lxGAWYxJvES6g=",
+        "last_login": "2020-11-26T15:04:45.786Z",
+        "is_superuser": false,
+        "username": "employee2",
+        "first_name": "",
+        "last_name": "",
+        "email": "em2@e.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-26T15:04:45.532Z",
+        "is_boss": false,
+        "is_employee": true,
+        "slug": "employee2",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 24,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$du7qlU0IvDgb$jRXnqcLBdh1kg8honSHawe6F7w6x8u6165042Dugsnc=",
+        "last_login": "2020-11-26T15:05:20.067Z",
+        "is_superuser": false,
+        "username": "employee3",
+        "first_name": "",
+        "last_name": "",
+        "email": "em3@e.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-26T15:05:19.775Z",
+        "is_boss": false,
+        "is_employee": true,
+        "slug": "employee3",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 25,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$boOKL8s4CkZY$Pkcl45/kZrjTxtre3i+qGYo9UZ5lL8Xvl57UL7pCEh0=",
+        "last_login": "2020-11-26T15:05:54.566Z",
+        "is_superuser": false,
+        "username": "employee4",
+        "first_name": "",
+        "last_name": "",
+        "email": "em4@e.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-26T15:05:54.299Z",
+        "is_boss": false,
+        "is_employee": true,
+        "slug": "employee4",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 26,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$j3SZmAyXaeKK$A3dMa0Bw2IYaJUhl9kFE08AvuwLNoLU1052mpf3zdTQ=",
+        "last_login": "2020-11-26T15:06:26.781Z",
+        "is_superuser": false,
+        "username": "employee5",
+        "first_name": "",
+        "last_name": "",
+        "email": "em5@e.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-26T15:06:26.523Z",
+        "is_boss": false,
+        "is_employee": true,
+        "slug": "employee5",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 27,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$FwMlBSDz8UVA$BXZdbJuErGZ0KodqLnES33PnVE1LgaV1RP+2SiGjs70=",
+        "last_login": "2020-11-26T15:07:26.894Z",
+        "is_superuser": false,
+        "username": "employee6",
+        "first_name": "",
+        "last_name": "",
+        "email": "em6@e.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-26T15:07:26.639Z",
+        "is_boss": false,
+        "is_employee": true,
+        "slug": "employee6",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 28,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$mlvst5FHHzQu$Ijx7ve7oYO2mxiJvxrLmSjLETZDmBYrjoRyceXc8tfg=",
+        "last_login": "2020-11-26T16:09:29Z",
+        "is_superuser": false,
+        "username": "gleb",
+        "first_name": "����",
+        "last_name": "",
+        "email": "g@g.ru",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2020-11-26T16:09:29Z",
+        "is_boss": true,
+        "is_employee": false,
+        "slug": "gleb",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 29,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$WwyCMiCgGuYG$1Y/x7JIYUjb2/TARZnAwKDEg19Sin6OzaNZIlI2PT2A=",
+        "last_login": "2020-11-26T16:12:19.182Z",
+        "is_superuser": false,
+        "username": "vadim",
+        "first_name": "",
+        "last_name": "",
+        "email": "v@v.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-26T16:12:18.925Z",
+        "is_boss": false,
+        "is_employee": true,
+        "slug": "vadim",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.boss",
+    "pk": 18,
+    "fields": {
+        "project_completed": 0
+    }
+},
+{
+    "model": "users.boss",
+    "pk": 19,
+    "fields": {
+        "project_completed": 0
+    }
+},
+{
+    "model": "users.boss",
+    "pk": 20,
+    "fields": {
+        "project_completed": 0
+    }
+},
+{
+    "model": "users.boss",
+    "pk": 21,
+    "fields": {
+        "project_completed": 0
+    }
+},
+{
+    "model": "users.boss",
+    "pk": 22,
+    "fields": {
+        "project_completed": 0
+    }
+},
+{
+    "model": "users.boss",
+    "pk": 28,
+    "fields": {
+        "project_completed": 0
+    }
+},
+{
+    "model": "users.employee",
+    "pk": 23,
+    "fields": {
+        "leader": 19,
+        "project": 2
+    }
+},
+{
+    "model": "users.employee",
+    "pk": 24,
+    "fields": {
+        "leader": 20,
+        "project": 3
+    }
+},
+{
+    "model": "users.employee",
+    "pk": 25,
+    "fields": {
+        "leader": 20,
+        "project": null
+    }
+},
+{
+    "model": "users.employee",
+    "pk": 26,
+    "fields": {
+        "leader": 20,
+        "project": null
+    }
+},
+{
+    "model": "users.employee",
+    "pk": 27,
+    "fields": {
+        "leader": 20,
+        "project": 4
+    }
+},
+{
+    "model": "users.employee",
+    "pk": 29,
+    "fields": {
+        "leader": 28,
+        "project": 9
+    }
+},
+{
+    "model": "users.project",
+    "pk": 1,
+    "fields": {
+        "title": "project 1",
+        "slug": "project-1",
+        "description": ""
+    }
+},
+{
+    "model": "users.project",
+    "pk": 2,
+    "fields": {
+        "title": "project 2",
+        "slug": "project-2",
+        "description": ""
+    }
+},
+{
+    "model": "users.project",
+    "pk": 3,
+    "fields": {
+        "title": "project 3",
+        "slug": "project-3",
+        "description": ""
+    }
+},
+{
+    "model": "users.project",
+    "pk": 4,
+    "fields": {
+        "title": "project 4",
+        "slug": "project-4",
+        "description": ""
+    }
+},
+{
+    "model": "users.project",
+    "pk": 5,
+    "fields": {
+        "title": "project 5",
+        "slug": "project-5",
+        "description": ""
+    }
+},
+{
+    "model": "users.project",
+    "pk": 6,
+    "fields": {
+        "title": "project 6",
+        "slug": "project-6",
+        "description": ""
+    }
+},
+{
+    "model": "users.project",
+    "pk": 7,
+    "fields": {
+        "title": "project 7",
+        "slug": "project-7",
+        "description": ""
+    }
+},
+{
+    "model": "users.project",
+    "pk": 8,
+    "fields": {
+        "title": "project 8",
+        "slug": "project-8",
+        "description": ""
+    }
+},
+{
+    "model": "users.project",
+    "pk": 9,
+    "fields": {
+        "title": "�������� �������",
+        "slug": "project",
+        "description": ""
+    }
+}
+]
