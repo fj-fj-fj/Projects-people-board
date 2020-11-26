@@ -10,12 +10,11 @@ DB_HOST = os.environ.get('DB_HOST')
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = '7el)th67ucskplyqo+%x9uoue6w&=s35ux4v$yq67x0ybk5ngi'
-# SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tz3.herokuapp.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
