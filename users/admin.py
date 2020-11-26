@@ -16,20 +16,17 @@ class UserAdmin(admin.ModelAdmin):
 
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ['user', 'leader', 'project']
-    list_filter = ('project__title', 'leader__user__username')
-    # fk_name = "leader"
 
 
 class ProjectAdmin(admin.ModelAdmin):
     model = Project
 
-    def get_facking_heads(self):
-        # print(self.heads)
+    def get_heads(self):
         return ", " . join([x.__str__() for x in self.heads.all()])
 
-    list_display = ['title', 'description', get_facking_heads]
+    list_display = ['title', 'description', get_heads]
 
-    get_facking_heads.short_description = 'Руководители'
+    get_heads.short_description = 'Руководители'
 
 
 class MembershipInline(admin.StackedInline):
@@ -38,36 +35,9 @@ class MembershipInline(admin.StackedInline):
 
 class BossAdmin(admin.ModelAdmin):
     list_display = ['user', 'project_completed']
-    # save_on_top = True
-    # inlines = [
-    #     MembershipInline,
-    # ]
-
-# class ProjectAdmin(admin.ModelAdmin):
-#     inlines = [
-#         MembershipInline,
-#     ]
-#     exclude = ('heads',)
 
 
 admin.site.register(User, UserAdmin)
 admin.site.register (Boss, BossAdmin)
 admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Project, ProjectAdmin)
-
-
-
-
-
-# class PostAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'slug', 'author', 'publish',
-#                 'status')
-#     list_filter = ('status', 'created', 'publish', 'author')
-#     search_fields = ('title', 'body')
-#     prepopulated_fields = {"slug": ("title",)}
-#     raw_id_fields = ('author',)
-#     date_hierarchy = 'publish'
-#     ordering = ['-publish', 'status']
-
-
-# admin.site.register(Post, PostAdmin)
