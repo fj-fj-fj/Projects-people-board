@@ -1,0 +1,21 @@
+{% extends  'base.html' %}
+
+
+{% block title %}Logged out{% endblock %}
+
+{% block content %}
+
+  <div class="card">
+
+    <div class="card-body">
+
+    <h4 class="card-title">Не авторизован</h4>
+    <h4 class="card-title">Благодарим вас за время, проведенное на этом сайте.</h4>
+        
+        <a class="nav-link" href="{% url 'login' %}">Войти снова</a>
+    
+    </div>
+    
+  </div>
+
+{% endblock %}

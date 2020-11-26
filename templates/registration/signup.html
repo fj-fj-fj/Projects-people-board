@@ -1,0 +1,14 @@
+{% extends 'base_user.html' %}
+
+{% block title %}select account-type{% endblock %}
+
+{% block content %}
+
+  <p class="lead">Выберите, какой аккаунт вы хотите создать</p>
+  
+  <a href="{% url 'teamlead_signup' %}" class="btn btn-primary btn-lg" role="button">Я руководитель</a>
+  <a href="{% url 'employee_signup' %}" class="btn btn-primary btn-lg" role="button">Я работник</a>
+
+  <a class="nav-link" href="{% url 'login' %}">Назад</a>
+
+{% endblock %}
