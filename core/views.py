@@ -5,7 +5,6 @@ from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 
 from users.models import User
-# from users.forms import UserForm
 from users.forms import BossSignUpForm
 from users.forms import EmployeeSignUpForm
 

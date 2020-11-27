@@ -1,13 +1,13 @@
 <!--
     При запросе конкретного проэкта шаблон отображает 
-        кол-во и список (работников и руководителей) выбранного проэкта.
+        кол-во и список (работников и руководителей) выбранного проекта.
     При запросе конкретного руководителя отображаются 
-        кол-во и список его (сотрудников и проэктов).
+        кол-во и список его (сотрудников и проектов).
 -->
 
 {% extends 'base_user.html' %}
 
-{% block title %}index{% endblock %}
+{% block title %}Detail{% endblock %}
 
 {% block content %}
 
@@ -23,7 +23,7 @@
 
             <ul class="list-group mt-2">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{ title }} <!--Руководители, если выбран проэкт, иначе Работники-->
+                    {{ title }} <!--Руководители, если выбран проэкт, иначе Проекты-->
                     <span class="badge badge-primary badge-pill">{{ bosses_or_projects_list|length }}</span>
                 </li>
                 {% for element in bosses_or_projects_list %}

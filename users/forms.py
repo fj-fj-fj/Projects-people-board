@@ -4,7 +4,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
 from django.forms import inlineformset_factory
-from .models import User, Boss, Employee, Project
+from .models import User, Boss, Employee
 
 
 class BossSignUpForm(UserCreationForm):

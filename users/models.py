@@ -105,20 +105,3 @@ class Project(models.Model):
     class Meta:
         verbose_name = 'Проэкт'
         verbose_name_plural = 'Проэкты'
-
-
-
-
-
-#                   --------------------------------------Signal
-# from django.db.models.signals import post_save
-# from django.dispatch import receiver
-# @receiver(post_save, sender=User)
-# def user_type_signal(sender, instance, created, **kwargs):
-#     if created:
-#         if instance.user_type == 'Leader':
-#             Leader.objects.create(profile=instance)
-#         else: # == 'Employee':
-#             Employee.objects.create(profile=instance)
-# 
-# https://lincolnloop.com/blog/django-anti-patterns-signals/

@@ -1,8 +1,6 @@
-from django.shortcuts import (
-    render, get_object_or_404, get_list_or_404
-)
+from django.shortcuts import render, get_object_or_404
 
-from users.models import Boss, Employee, Project
+from users.models import Boss, Project
 
 
 def index_view(request):
@@ -19,9 +17,7 @@ def index_view(request):
 
 
 def detail_view(request, slug):
-    """Фильтрация по связанной сущности.
-    
-       :return: all bosses and employees if a project is selected
+    """:return: all bosses and employees if a project is selected
        :return: all projects and employees if a person is selected
     """
 
@@ -46,7 +42,3 @@ def detail_view(request, slug):
     }
 
     return render(request, 'users/detail.html', context)
-
-
-# users.models.Boss.MultipleObjectsReturned: get() returned more than one Boss
-# boss = get_list_or_404(Boss, user__slug__iexact=slug)
