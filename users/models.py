@@ -29,10 +29,10 @@ class Boss(models.Model):
     """Model representing a leader"""
 
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, primary_key=True, verbose_name='юзернэйм'
+        User, on_delete=models.CASCADE, primary_key=True, verbose_name='Имя пользователя'
     )
     project_completed = models.PositiveSmallIntegerField(
-        'Успешно завершенные проэкты', blank=True, default=0
+        'Успешно завершенные проекты', blank=True, default=0
     )
 
     def get_count_succesful_projects(self):
@@ -61,7 +61,7 @@ class Employee(models.Model):
     # level = models.CharField(max_length=1, choices=Level.choices, default=Level.TRAINEE)
 
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, primary_key=True, verbose_name='юзернэйм'
+        User, on_delete=models.CASCADE, primary_key=True, verbose_name='Имя пользователяА'
     )
     leader = models.ForeignKey(
         Boss, blank=True, null=True, on_delete=models.CASCADE, 
@@ -69,7 +69,7 @@ class Employee(models.Model):
     )
     project = models.ForeignKey(
         'Project', blank=True, null=True, on_delete=models.CASCADE, 
-        related_name='employees', verbose_name='Учавствует в проэкте'
+        related_name='employees', verbose_name='Учавствует в проекте'
     )
 
     def get_position(self):
@@ -93,7 +93,7 @@ class Project(models.Model):
     description = models.TextField('Описание', blank=True)
     heads = models.ManyToManyField(
         Boss, blank=True, through=Employee, 
-        related_name='projects', verbose_name='Руководители проэкта'
+        related_name='projects', verbose_name='Руководители проекта'
     )
     
     def get_absolute_url(self, slug):
@@ -103,5 +103,5 @@ class Project(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Проэкт'
-        verbose_name_plural = 'Проэкты'
+        verbose_name = 'Проект'
+        verbose_name_plural = 'Проекты'

@@ -1,43 +1,46 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-
-from .forms import BossSignUpForm, EmployeeSignUpForm
 from .models import User, Boss, Employee, Project
 
 
-# NOTE: разобраться с фильтрами и м2м
-
-
+@admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = [
+    list_display = (
         'username', 'email', 'is_boss', 'is_employee', 'is_staff', 'is_superuser'
-    ]
+    )
+    list_filter = ('is_boss', 'is_employee')
 
 
+@admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ['user', 'leader', 'project']
+    list_display = ('user', 'leader', 'project')
+    list_filter = ('project', 'leader')
 
 
+class EmployeeInline(admin.TabularInline):
+    """ Edit the intermediate model `Employee` inline """
+    model = Employee
+    extra = 1
+
+
+@admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    model = Project
-
+    
     def get_heads(self):
-        return ", " . join([x.__str__() for x in self.heads.all()])
-
-    list_display = ['title', 'description', get_heads]
+        return ', '.join([h.__str__() for h in self.heads.all()])
 
     get_heads.short_description = 'Руководители'
+    list_display = ('title', 'description', get_heads)
+    list_filter = ('heads',)
+    inlines = (EmployeeInline,)
 
 
-class MembershipInline(admin.StackedInline):
-    model = Project
-    filter_horizontal = ('heads',)
-
+@admin.register(Boss)
 class BossAdmin(admin.ModelAdmin):
-    list_display = ['user', 'project_completed']
 
-
-admin.site.register(User, UserAdmin)
-admin.site.register (Boss, BossAdmin)
-admin.site.register(Employee, EmployeeAdmin)
-admin.site.register(Project, ProjectAdmin)
+    def get_projects(self):
+        return ', '.join([p.__str__() for p in self.projects.all()])
+    
+    get_projects.short_description = 'Проекты'
+    list_display = ('user', 'project_completed', get_projects)
+    list_filter = ('projects',)
+    inlines = (EmployeeInline,)
