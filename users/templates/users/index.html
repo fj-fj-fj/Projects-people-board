@@ -1,4 +1,4 @@
-<!-- Этот шаблон отображает список и кол-во руководителей и проэктов -->
+<!-- Этот шаблон отображает список и кол-во руководителей и проектов -->
 
 {% extends 'base_user.html' %}
 
@@ -17,13 +17,13 @@
             <div class="card-body">
 
             <ul class="list-group mt-2">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Руководители
-                    <span class="badge badge-primary badge-pill">{{ bosses|length }}</span>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
+                    <strong>Руководители</strong>
+                    <span class="badge badge-info badge-pill">{{ bosses|length }}</span>
                 </li>
                 {% for boss in bosses %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a class="nav-link" href="{{ boss.get_absolute_url }}">{{ boss }}</a>
+                    <a class="nav-link" href="{{ boss.get_absolute_url }}">{{ boss|title }}</a>
                 </li>
                 {% endfor %}
             </ul>
@@ -35,9 +35,9 @@
             <div class="card-body">
 
             <ul class="list-group mt-2">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Проэкты
-                    <span class="badge badge-primary badge-pill">{{ projects|length }}</span>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
+                    <strong>Проекты</strong>
+                    <span class="badge badge-info badge-pill">{{ projects|length }}</span>
                 </li>
                 {% for project in projects %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
