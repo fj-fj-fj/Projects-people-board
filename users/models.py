@@ -14,9 +14,6 @@ class User(AbstractUser):
     is_employee = models.BooleanField(default=False)
     slug = AutoSlugField(populate_from='username')
 
-    def get_absolute_url(self):
-        return reverse('detail_view', kwargs=('slug', self.slug))
-
     def __str__(self):
         return self.username
 
@@ -39,6 +36,9 @@ class Boss(models.Model):
         """Returns number of successfully completed projects"""
         return self.project_completed
 
+    def get_absolute_url(self):
+        return reverse('users:boss_detail_url', kwargs=('slug', self.slug))
+
     def __str__(self):
         return self.user.username
                 
@@ -57,7 +57,7 @@ class Employee(models.Model):
     #     JUNIOR = 'J', _('Jinior')
     #     MIDDLE = 'M', _('Middle')
     #     SENIOR = 'S', _('Senior')
-    # 
+    
     # level = models.CharField(max_length=1, choices=Level.choices, default=Level.TRAINEE)
 
     user = models.OneToOneField(
@@ -97,7 +97,7 @@ class Project(models.Model):
     )
     
     def get_absolute_url(self, slug):
-        return reverse('detail_view', kwargs=('slug', self.slug))
+        return reverse('users:project_detail_url', kwargs=('slug', self.slug))
     
     def __str__(self):
         return self.title

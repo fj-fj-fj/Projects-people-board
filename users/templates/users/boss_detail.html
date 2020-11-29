@@ -1,10 +1,3 @@
-<!--
-    При запросе конкретного проекта шаблон отображает 
-        кол-во и список (работников и руководителей) выбранного проекта.
-    При запросе конкретного руководителя отображаются 
-        кол-во и список его (сотрудников и проектов).
--->
-
 {% extends 'base_user.html' %}
 
 {% block title %}Detail{% endblock %}
@@ -17,7 +10,7 @@
 
     {% endif %}
 
-    <h3>{{ current_boss_or_project|title }}</h3>
+    <h3>{{ boss|title }}</h3>
 
     <div class="row">
         <div class="col-sm-6">
@@ -25,13 +18,12 @@
                
             <ul class="list-group mt-2">
                 <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
-                    <strong>{{ title }}</strong> <!--Руководители, если выбран проект, иначе Проекты-->
-                    <span class="badge badge-info badge-pill">{{ bosses_or_projects_list|length }}</span>
+                    <strong>Проекты</strong>
+                    <span class="badge badge-info badge-pill">{{ project_list|length }}</span>
                 </li>
-                {% for element in bosses_or_projects_list %}
+                {% for project in project_list %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{ element }}
-                    {# {{ element.get_count_succesful_projects }} #} <!--карма боса-->
+                    {{ project }}
                 </li>
                 {% endfor %}
             </ul>
@@ -45,9 +37,9 @@
             <ul class="list-group mt-2">
                 <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
                     <strong>Работники</strong>
-                    <span class="badge badge-info badge-pill">{{ employees|length }}</span>
+                    <span class="badge badge-info badge-pill">{{ employee_list|length }}</span>
                 </li>
-                {% for employee in employees %}
+                {% for employee in employee_list %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     {{ employee }}
                     {# {{ employee.get_position }} #} <!--опыт сотрудника-->

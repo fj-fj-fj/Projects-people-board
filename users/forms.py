@@ -28,6 +28,7 @@ class BossSignUpForm(UserCreationForm):
             Boss.objects.create(user=user)
         return user
 
+
 class EmployeeSignUpForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
@@ -47,3 +48,10 @@ class EmployeeSignUpForm(UserCreationForm):
             user.save()
             Employee.objects.create(user=user)
         return user
+
+
+from django import forms
+class EmployeeLevelForm(forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = ('leader',)

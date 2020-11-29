@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from users.models import User
 from users.forms import BossSignUpForm
 from users.forms import EmployeeSignUpForm
+from users.forms import EmployeeLevelForm
 
 
 class SignUpView(TemplateView):
@@ -41,11 +42,3 @@ class EmployeeSignUpView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('users:index_url')
-
-
-
-#  e = Employee.objects.create(...)
-#  f = UserForm(request.POST, instance=e)
-#  f.save()
-#  return super(MyView, self).form_valid(form)
-

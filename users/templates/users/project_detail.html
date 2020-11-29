@@ -1,8 +1,6 @@
-<!-- Этот шаблон отображает список и кол-во руководителей и проектов -->
-
 {% extends 'base_user.html' %}
 
-{% block title %}index{% endblock %}
+{% block title %}Detail{% endblock %}
 
 {% block content %}
 
@@ -12,10 +10,12 @@
 
     {% endif %}
 
+    <h3>{{ project|title }}</h3>
+
     <div class="row">
         <div class="col-sm-6">
             <div class="card-body">
-
+               
             <ul class="list-group mt-2">
                 <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
                     <strong>Руководители</strong>
@@ -23,7 +23,8 @@
                 </li>
                 {% for boss in boss_list %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a class="nav-link" href="{{ boss.get_absolute_url }}">{{ boss|title }}</a>
+                    {{ boss }}
+                    {# {{ boss.get_count_succesful_projects }} #} <!--карма боса-->
                 </li>
                 {% endfor %}
             </ul>
@@ -36,12 +37,13 @@
 
             <ul class="list-group mt-2">
                 <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
-                    <strong>Проекты</strong>
-                    <span class="badge badge-info badge-pill">{{ project_list|length }}</span>
+                    <strong>Работники</strong>
+                    <span class="badge badge-info badge-pill">{{ employee_list|length }}</span>
                 </li>
-                {% for project in project_list %}
+                {% for employee in employee_list %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a class="nav-link" href="{{ project.get_absolute_url }}">{{ project }}</a>
+                    {{ employee }}
+                    {# {{ employee.get_position }} #} <!--опыт сотрудника-->
                 </li>
                 {% endfor %}
             </ul>
@@ -49,5 +51,7 @@
             </div>
         </div>
     </div>
+
+    <a class="nav-link" href="{% url 'users:index_url' %}">Назад</a>
 
 {% endblock %}

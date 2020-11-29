@@ -1,44 +1,56 @@
-from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView
+from django.views.generic import DetailView
+from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 
-from users.models import Boss, Project
-
-
-def index_view(request):
-    """Returns all bosses and projects"""
-
-    bosses = Boss.objects.all()
-    projects = Project.objects.all()
-
-    context = {
-        'bosses': bosses,
-        'projects': projects,
-    }
-    return render(request, 'users/index.html', context)
+from users.models import User, Boss, Project
 
 
-def detail_view(request, slug):
-    """:return: all bosses and employees if a project is selected
-       :return: all projects and employees if a person is selected
-    """
+class IndexView(ListView):
+    model = Boss
+    template_name = 'users/index.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['boss_list'] = Boss.objects.all()
+        context['project_list'] = Project.objects.all()
+        return context
 
-    if 'boss' in request.path:
-        boss = get_object_or_404(Boss, user__slug__iexact=slug)
-        projects = boss.projects.all()
-        employees = boss.subordinates.all()
-        result = boss, projects, 'Проэкты'
+
+class BossDetailView(DetailView):
+    model = Boss
+    template_name = 'users/boss_detail.html'
+
+    def get_object(self, queryset=None):
+        slug = self.kwargs['slug']
+        user = User.objects.get(slug__iexact=slug)
+        boss = Boss.objects.get(user=user)
+        return boss
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+
+        context.update({
+            'boss': self.object,
+            'project_list': self.object.projects.all(),
+            'employee_list': self.object.subordinates.all(),
+        })
+        return context
 
 
-    elif 'project' in request.path:
-        project = get_object_or_404(Project, slug__iexact=slug)
-        heads = project.heads.all()
-        employees = project.employees.all()
-        result = project, heads, 'Руководители'
+class ProjectDetailView(DetailView):
+    model = Project
+    template_name = 'users/project_detail.html'
 
-    context = {
-        'current_boss_or_project': result[0],
-        'bosses_or_projects_list': result[1],
-        'title': result[2],
-        'employees': employees
-    }
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        
+        project = get_object_or_404(Project, slug__iexact=self.kwargs['slug'])
 
-    return render(request, 'users/detail.html', context)
+        context.update({
+            'project': project,
+            'boss_list': project.heads.all(),
+            'employee_list': project.employees.all()
+        })
+        return context
+
