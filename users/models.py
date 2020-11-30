@@ -9,7 +9,6 @@ from autoslug import AutoSlugField
 #                   ----------------------------------CustomUser
 class User(AbstractUser):
     """auth/login-related fields"""
-    # одна модель для аутентификации с возможностью расширения
 
     is_boss = models.BooleanField(default=False)
     is_employee = models.BooleanField(default=False)
