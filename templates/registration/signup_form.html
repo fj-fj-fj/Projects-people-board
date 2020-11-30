@@ -19,7 +19,8 @@
                 <input type="hidden" name="next" value="{{ next }}">
                 
                 {{ form|crispy }}
-                
+                {#  {{ employee_level|crispy }}  #}
+
                 <button type="submit" class="btn btn-primary btn-block">Sign up</button>
                 <a class="nav-link" href="{% url 'login' %}">Назад</a>
             </form>

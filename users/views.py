@@ -28,7 +28,8 @@ class BossDetailView(DetailView):
         return boss
 
     def get_context_data(self, **kwargs):
-        context = super(DetailView, self).get_context_data(**kwargs)
+        context = super(BossDetailView, self).get_context_data(**kwargs)
+
 
         context.update({
             'boss': self.object,
@@ -43,7 +44,7 @@ class ProjectDetailView(DetailView):
     template_name = 'users/project_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(DetailView, self).get_context_data(**kwargs)
+        context = super(ProjectDetailView, self).get_context_data(**kwargs)
         
         project = get_object_or_404(Project, slug__iexact=self.kwargs['slug'])
 

@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import reverse
+
 from autoslug import AutoSlugField
 
 
@@ -51,14 +52,14 @@ class Boss(models.Model):
 class Employee(models.Model):
     """Model representing an employee"""
 
-    # class Level(models.TextChoices):
-    #     """TYPE OF USER MAPPING"""
-    #     TRAINEE = 'T', _('Thainee')
-    #     JUNIOR = 'J', _('Jinior')
-    #     MIDDLE = 'M', _('Middle')
-    #     SENIOR = 'S', _('Senior')
+    class Level(models.TextChoices):
+        """TYPE OF USER MAPPING"""
+        TRAINEE = 'T', _('Thainee')
+        JUNIOR = 'J', _('Jinior')
+        MIDDLE = 'M', _('Middle')
+        SENIOR = 'S', _('Senior')
     
-    # level = models.CharField(max_length=1, choices=Level.choices, default=Level.TRAINEE)
+    level = models.CharField(max_length=1, choices=Level.choices, default=Level.TRAINEE)
 
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True, verbose_name='Имя пользователяА'
