@@ -1,6 +1,5 @@
 from django.contrib.auth import login
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView, TemplateView
 )
@@ -10,13 +9,11 @@ from users.models import User, Employee
 
 class SignUpView(TemplateView):
     """pre-signup with user type selection"""
-
     template_name = 'registration/signup.html'
 
 
 class BossSignUpView(CreateView):
     """Registration of user type `boss`"""
-
     model = User
     form_class = forms.BossSignUpForm
     template_name = 'registration/signup_form.html'
@@ -31,8 +28,6 @@ class BossSignUpView(CreateView):
         return redirect('users:index_url')
 
 
-# Для добавления поля из связанной модели, модифицировал вью
-
 class EmployeeSignUpView(CreateView):
     """Registration of user type `employee` with 
         additional field `level` of experience 
@@ -41,8 +36,8 @@ class EmployeeSignUpView(CreateView):
         <select>
             trainee(default), junior, middle, senior
         </select>
+        
     """
-
     model = User
     form_class = forms.EmployeeSignUpForm
     template_name = 'registration/signup_form.html'
@@ -54,7 +49,6 @@ class EmployeeSignUpView(CreateView):
 
         self.object = None 
         form_class = self.get_form_class()
-        
         form = self.get_form(form_class)
         employee_level = forms.EmployeeLevelForm()  #
 
@@ -71,19 +65,14 @@ class EmployeeSignUpView(CreateView):
         employee_level = forms.EmployeeLevelForm(request.POST)  #
 
         if form.is_valid() and employee_level.is_valid():
-
-            # FIXME: Я запутался, пусть временно будет вот эта херня:
-
-            level = dict(request.POST).get('employee-0-level', 'T')
             self.object = form.save()
-            e = Employee.objects.get(user=self.object)
-            e.level = level[0]
-            e.save()
-            # print(0, form.instance.employee.user) # entered username, ok
-            # print(1, form.instance.employee.level) # It's still default
+
+            # isinstance(cleaned_data, list) -> True
+            # if level == default, cleaned_data == {} wtf
+            level, = [f.cleaned_data.get('level', 'T') for f in employee_level.forms]
+            Employee.objects.filter(user=self.object).update(level=level)
             
             login(self.request, self.object)
-
             return redirect('users:index_url')
         return self.form_invalid(form, employee_level)
     
@@ -100,6 +89,7 @@ class EmployeeSignUpView(CreateView):
 
 
 # class DampSquib:
+#     my inlineform_factory pain :D
 #     AttributeError: 'TypedChoiceField' object has no attribute 'values'
 #     AttributeError: 'EmployeeSignUpView' object has no attribute 'object'
 #     ValueError: save() prohibited to prevent data loss due to unsaved related object 'user'.

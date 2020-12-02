@@ -1,10 +1,10 @@
-""" This module contains forms for registration of two types of user 
-    `employee` and `boss`. 
+""" This module contains forms for registration of 
+        two types of user `employee` and `boss`. 
     
-    It also contains crispy:
+    It also contains crispy (CrispyUserCreationForm):
     https://django-crispy-forms.readthedocs.io/en/latest/
-"""
 
+"""
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import inlineformset_factory
 
@@ -20,12 +20,13 @@ EmployeeLevelForm = inlineformset_factory(
 
         
 class CrispyUserCreationForm(UserCreationForm):
-
+    """General model and fields form both types of user"""
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ('username', 'email')
 
     def __init__(self, *args, **kwargs):
+        """Crispy: set up some basic `FormHelper` attributes"""
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'

@@ -61,7 +61,7 @@ class Employee(models.Model):
     level = models.CharField(max_length=1, choices=Level.choices, default=Level.TRAINEE)
 
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, primary_key=True, verbose_name='Имя пользователяА'
+        User, on_delete=models.CASCADE, primary_key=True, verbose_name='Имя пользователя'
     )
     leader = models.ForeignKey(
         Boss, blank=True, null=True, on_delete=models.CASCADE, 
