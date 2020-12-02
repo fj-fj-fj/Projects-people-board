@@ -50,19 +50,18 @@ class EmployeeSignUpForm(CrispyUserCreationForm):
         return user
 
 
-# https://github.com/django/django/blob/stable/1.5.x/django/forms/forms.py#L268
-# https://github.com/django/django/blob/stable/1.5.x/django/forms/formsets.py#L144
-
 class BaseEmployeeLevelForm(BaseInlineFormSet):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for form in self.forms:
             form.empty_permitted = False
+            form.fields['level'].required = False
+            form.fields['level'].label = 'Ваш уровень опыта'
 
 
 EmployeeLevelForm = inlineformset_factory(
     User, Employee, 
-    fields=('level',), 
+    fields=('level',),
     can_delete=False, 
     formset=BaseEmployeeLevelForm
 )
