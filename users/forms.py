@@ -7,16 +7,12 @@
 """
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import inlineformset_factory
+from django.forms import BaseInlineFormSet
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
 from .models import User, Boss, Employee
-
-
-EmployeeLevelForm = inlineformset_factory(
-    User, Employee, fields=('level',)
-)
 
         
 class CrispyUserCreationForm(UserCreationForm):
@@ -53,3 +49,20 @@ class EmployeeSignUpForm(CrispyUserCreationForm):
             Employee.objects.create(user=user)
         return user
 
+
+# https://github.com/django/django/blob/stable/1.5.x/django/forms/forms.py#L268
+# https://github.com/django/django/blob/stable/1.5.x/django/forms/formsets.py#L144
+
+class BaseEmployeeLevelForm(BaseInlineFormSet):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.forms:
+            form.empty_permitted = False
+
+
+EmployeeLevelForm = inlineformset_factory(
+    User, Employee, 
+    fields=('level',), 
+    can_delete=False, 
+    formset=BaseEmployeeLevelForm
+)

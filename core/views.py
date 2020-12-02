@@ -66,10 +66,9 @@ class EmployeeSignUpView(CreateView):
 
         if form.is_valid() and employee_level.is_valid():
             self.object = form.save()
-
+            
             # isinstance(cleaned_data, list) -> True
-            # if level == default, cleaned_data == {} wtf
-            level, = [f.cleaned_data.get('level', 'T') for f in employee_level.forms]
+            level, = [f.cleaned_data['level'] for f in employee_level.forms]
             Employee.objects.filter(user=self.object).update(level=level)
             
             login(self.request, self.object)
