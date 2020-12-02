@@ -25,7 +25,7 @@ class BossSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('users:index_url')
+        return redirect('users:index-url')
 
 
 class EmployeeSignUpView(CreateView):
@@ -72,7 +72,7 @@ class EmployeeSignUpView(CreateView):
             Employee.objects.filter(user=self.object).update(level=level)
             
             login(self.request, self.object)
-            return redirect('users:index_url')
+            return redirect('users:index-url')
         return self.form_invalid(form, employee_level)
     
 

@@ -118,7 +118,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-LOGIN_REDIRECT_URL = '/users/index/'
+LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_URL = 'users/login/'
 

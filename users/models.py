@@ -6,10 +6,8 @@ from django.shortcuts import reverse
 from autoslug import AutoSlugField
 
 
-#                   ----------------------------------CustomUser
 class User(AbstractUser):
     """auth/login-related fields"""
-
     is_boss = models.BooleanField(default=False)
     is_employee = models.BooleanField(default=False)
     slug = AutoSlugField(populate_from='username')
@@ -21,10 +19,9 @@ class User(AbstractUser):
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
 
-#                   --------------------------------------Leader
+
 class Boss(models.Model):
     """Model representing a leader"""
-
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True, verbose_name='Имя пользователя'
     )
@@ -37,7 +34,7 @@ class Boss(models.Model):
         return self.project_completed
 
     def get_absolute_url(self):
-        return reverse('users:boss_detail_url', kwargs=('slug', self.slug))
+        return reverse('users:boss-detail', kwargs=('slug', self.slug))
 
     def __str__(self):
         return self.user.username
@@ -47,10 +44,8 @@ class Boss(models.Model):
         verbose_name_plural = 'Руководители'
 
 
-#                   ------------------------------------Employee
 class Employee(models.Model):
     """Model representing an employee"""
-
     class Level(models.TextChoices):
         """TYPE OF USER MAPPING"""
         TRAINEE = 'T', _('Thainee')
@@ -84,10 +79,8 @@ class Employee(models.Model):
         verbose_name_plural = 'Сотрудники'
 
 
-#                   -------------------------------------Project
 class Project(models.Model):
     """Model representing a project"""
-
     title = models.CharField('Название', max_length=100, db_index=True)
     slug = AutoSlugField(populate_from='title')
     description = models.TextField('Описание', blank=True)
@@ -97,7 +90,7 @@ class Project(models.Model):
     )
     
     def get_absolute_url(self, slug):
-        return reverse('users:project_detail_url', kwargs=('slug', self.slug))
+        return reverse('users:project-detail', kwargs=('slug', self.slug))
     
     def __str__(self):
         return self.title
