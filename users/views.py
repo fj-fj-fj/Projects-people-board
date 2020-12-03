@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView
 
-from users.models import User, Boss, Project
+from users.models import Boss, Project
 
 
 class IndexView(ListView):
@@ -10,8 +10,7 @@ class IndexView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # XXX: пересмотреть 
-        context['boss_list'] = Boss.objects.all()
+        context['boss_list'] = self.model.objects.select_related("user").all()
         context['project_list'] = Project.objects.all()
         return context
 
@@ -22,14 +21,16 @@ class BossDetailView(DetailView):
 
     def get_object(self, queryset=None):
         slug = self.kwargs['slug']
-        return User.objects.select_related('boss').get(slug__iexact=slug)
+        return self.model.objects.select_related('user') \
+                   .get(user__slug__iexact=slug)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'boss': self.object.boss,
-            'project_list': self.object.boss.projects.all(),
-            'employee_list': self.object.boss.subordinates.all(),
+            'boss': self.object,
+            'project_list': self.object.projects.all(),
+            'employee_list': self.object.subordinates \
+                                 .prefetch_related('user').all()
         })
         return context
 
@@ -40,31 +41,34 @@ class ProjectDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # XXX: пересмотреть 
-        project = get_object_or_404(Project, slug__iexact=self.kwargs['slug'])
+        slug = self.kwargs['slug']
+        project = get_object_or_404(self.model, slug__iexact=slug)
         context.update({
             'project': project,
-            'boss_list': project.heads.all(),
-            'employee_list': project.employees.all()
+            'boss_list': project.heads.prefetch_related('user').all(),
+            'employee_list': project.employees.prefetch_related('user').all()
         })
         return context
 
 
 
 
-# NOTE  ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-# Great night to stop the deluge of database queries
-
-# если у руководителя 1 сотрудник и 1 проект:
-
-# case 1
-# user = User.objects.get(slug__iexact=slug) + boss = Boss.objects.get(user=user) --> connection.queries == 3
-# + boss.projects.all() + boss.subordinates.all() --> connection.queries == 5
-
-# case 2
-# user = User.objects.prefetch_related('boss__subordinates').prefetch_related('boss__projects').get(slug__iexact=slug) --> connection.queries == 4
-# + user.boss.subordinates.all() (+1) + user.boss.projects.all() (+0) --> connection.queries == 5
-
-# case 3
-# user = User.objects.select_related('boss').get(slug__iexact=slug) --> connection.queries == 1
-# + user.boss.projects.all() + user.boss.subordinates.all() --> connection.queries == 4  win
+# NOTE: About the difference in the number of db queries
+#
+# Boss.objects.all()  # len(connection.queries) - 9
+# ✔️ Boss.objects.select_related("user").all() # 1
+#
+# Project.objects.all()  # 1
+#
+# Boss.subordinates.all()  # 9
+# ✔️ Boss.subordinates.prefetch_related('user').all()  # 3
+#
+# project = Project.objects.get(slug__iexact=slug)  # 1
+#
+# project.heads.all() # 3
+# ✔️ project.heads.prefetch_related('user').all() # 2
+#
+# project.employees.all() # 3
+# ✔️ project.employees.prefetch_related('user').all() # 2
+#
+# Hopefully optimize successfully
