@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse, resolve
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.views import LoginView, LogoutView
 
 from core.views import (
@@ -14,48 +14,67 @@ from ..models import Boss, Project
 
 class UrlsTestCase(TestCase):
     """Test (login, signup, signup-teamlead, signup-employee, logout, index) pages"""
+    
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username='test', email='foo@user.com', password='12test34'
+        )
+
+    def tearDown(self):
+        self.user.delete()
 
     def test_login_loads_properly(self):
-        """The login page loads properly"""
-        # The view function that would be used to serve the URL
-        self.assertEquals(resolve('/login/').func.view_class, LoginView)
-        path = reverse('login')
-        response = self.client.get(path)
-        self.assertEquals(response.status_code, 200)
+        response = self.client.get(reverse('login'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'registration/login.html')
+        self.assertEqual(resolve('/login/').func.view_class, LoginView)
+
+    def test_logged_in_uses_correct_template(self):
+        self.client.login(username='test', password='12test34')
+        response = self.client.get(reverse('login'))
+        self.assertEqual(str(response.context['user']), 'test')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response,'registration/login.html')
+
+    def test_redirect_if_logged_in(self):
+        form_data = {'username': 'test', 'password': '12test34'}
+        response = self.client.post(reverse('login'), form_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/')
 
     def test_signup_loads_properly(self):
-        """The signup page loads properly"""
-        self.assertEquals(resolve('/signup/').func.view_class, SignUpView)
-        path = reverse('signup')
-        response = self.client.get(path)
-        self.assertEquals(response.status_code, 200)
-
+        response = self.client.get(reverse('signup'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'registration/signup.html')
+        self.assertEqual(resolve('/signup/').func.view_class, SignUpView)
+        self.assertContains(response, 
+            '<p class="lead">Выберите, какой аккаунт Вы хотите создать</p>', 
+            html=True
+        )
+    
     def test_signup_teamlead_loads_properly(self):
-        """The teamlead-signup page loads properly"""
-        self.assertEquals(resolve('/signup/teamlead/').func.view_class, BossSignUpView)
-        path = reverse('teamlead-signup')
-        response = self.client.get(path)
-        self.assertEquals(response.status_code, 200)
+        response = self.client.get(reverse('teamlead-signup'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'registration/signup_form.html')
+        self.assertEqual(resolve('/signup/teamlead/').func.view_class, BossSignUpView)
 
     def test_signup_employee_loads_properly(self):
-        """The employee-signup page loads properly"""
-        self.assertEquals(resolve('/signup/employee/').func.view_class, EmployeeSignUpView)
-        path = reverse('employee-signup')
-        response = self.client.get(path)
-        self.assertEquals(response.status_code, 200)
+        response = self.client.get(reverse('employee-signup'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'registration/signup_form.html')
+        self.assertEqual(resolve('/signup/employee/').func.view_class, EmployeeSignUpView)
 
     def test_logout_loads_properly(self):
-        """The logout page loads properly"""
-        self.assertEquals(resolve('/logout/').func.view_class, LogoutView)
-        path = reverse('logout')
-        response = self.client.get(path)
-        self.assertEquals(response.status_code, 200)
+        response = self.client.get(reverse('logout'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'registration/logged_out.html')
+        self.assertEqual(resolve('/logout/').func.view_class, LogoutView)
 
     def test_index_loads_properly(self):
-        """The index page loads properly"""
-        self.assertEquals(resolve('/').func.view_class, IndexView)
         response = self.client.get('/')
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'users/index.html')
+        self.assertEqual(resolve('/').func.view_class, IndexView)
 
 
 class UrlsWithSlugTestCase(TestCase):
@@ -69,15 +88,16 @@ class UrlsWithSlugTestCase(TestCase):
         self.project = Project.objects.create(title='sic egg', slug='sic-egg')
 
     def test_boss_has_slug(self):
-        """Bosses are given slugs correctly when saving"""
-        self.assertEquals(resolve('/boss/f-o-o/').func.view_class, BossDetailView)
         path = reverse('users:boss-detail', kwargs={'slug': self.boss.user.slug})
         response = self.client.get(path)
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'users/boss_detail.html')
+        self.assertEqual(resolve('/boss/f-o-o/').func.view_class, BossDetailView)
 
     def test_project_has_slug(self):
-        """Projects are given slugs correctly when saving"""
-        self.assertEquals(resolve('/project/sic-egg/').func.view_class, ProjectDetailView)
         path = reverse('users:project-detail', kwargs={'slug': self.project.slug})
         response = self.client.get(path)
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'users/project_detail.html')
+        self.assertEqual(resolve('/project/sic-egg/').func.view_class, ProjectDetailView)
+
