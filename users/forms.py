@@ -29,25 +29,11 @@ class CrispyUserCreationForm(UserCreationForm):
         self.helper.add_input(Submit('submit', 'Save person'))
 
 class BossSignUpForm(CrispyUserCreationForm):
-    
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.is_boss = True
-        if commit:
-            user.save()
-            Boss.objects.create(user=user)
-        return user
+    pass
 
 
 class EmployeeSignUpForm(CrispyUserCreationForm):
-    
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.is_employee = True
-        if commit:
-            user.save()
-            Employee.objects.create(user=user)
-        return user
+    pass
 
 
 class BaseEmployeeLevelForm(BaseInlineFormSet):

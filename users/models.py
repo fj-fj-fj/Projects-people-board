@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import reverse
 
 from autoslug import AutoSlugField
@@ -17,8 +16,10 @@ class User(AbstractUser):
 
     class Meta:
         verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
+        verbose_name_plural = 'Пользователи' 
 
+
+# is_boss, is_employee флагов достаточно. Boss, Employee модели кажутся лишними
 
 class Boss(models.Model):
     """Model representing a leader"""
@@ -48,10 +49,10 @@ class Employee(models.Model):
     """Model representing an employee"""
     class Level(models.TextChoices):
         """TYPE OF USER MAPPING"""
-        TRAINEE = 'T', _('Thainee')
-        JUNIOR = 'J', _('Jinior')
-        MIDDLE = 'M', _('Middle')
-        SENIOR = 'S', _('Senior')
+        TRAINEE = 'T', 'Thainee'
+        JUNIOR = 'J', 'Jinior'
+        MIDDLE = 'M', 'Middle'
+        SENIOR = 'S', 'Senior'
     
     level = models.CharField(max_length=1, choices=Level.choices, default=Level.TRAINEE)
 
@@ -59,11 +60,11 @@ class Employee(models.Model):
         User, on_delete=models.CASCADE, primary_key=True, verbose_name='Имя пользователя'
     )
     leader = models.ForeignKey(
-        Boss, blank=True, null=True, on_delete=models.CASCADE, 
+        Boss, blank=True, null=True, on_delete=models.SET_NULL, 
         related_name='subordinates', verbose_name='Руководители'
     )
     project = models.ForeignKey(
-        'Project', blank=True, null=True, on_delete=models.CASCADE, 
+        'Project', blank=True, null=True, on_delete=models.SET_NULL, 
         related_name='employees', verbose_name='Учавствует в проекте'
     )
 
@@ -85,8 +86,7 @@ class Project(models.Model):
     slug = AutoSlugField(populate_from='title')
     description = models.TextField('Описание', blank=True)
     heads = models.ManyToManyField(
-        Boss, blank=True, through=Employee, 
-        related_name='projects', verbose_name='Руководители проекта'
+        Boss, blank=True, related_name='projects', verbose_name='Руководители проекта'
     )
     
     def get_absolute_url(self, slug):

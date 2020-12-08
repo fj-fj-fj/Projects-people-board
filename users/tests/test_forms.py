@@ -27,17 +27,6 @@ class BossSignUpFormTest(TestCase):
         form = BossSignUpForm({})
         self.assertTrue(form.errors)
 
-    def test_save(self):
-        """Register User object and create Boss object successfully"""
-        self.form.save()
-        username = User.objects.get(username='foo').__str__()
-        self.assertEqual('foo', username)
-        boss_object_correctly_saved = Boss.objects.get(user__username=username)
-        self.assertEqual('foo', boss_object_correctly_saved.__str__())
-
-
-
-
 
 class EmployeeSignUpFormTest(TestCase):
 
@@ -56,14 +45,6 @@ class EmployeeSignUpFormTest(TestCase):
         self.assertTrue(self.form.cleaned_data)
         form = EmployeeSignUpForm({})
         self.assertTrue(form.errors)
-
-    def test_save(self):
-        """Register User object and create Employee object successfully"""
-        self.form.save()
-        username = User.objects.get(username='bar').__str__()
-        self.assertEqual('bar', username)
-        employee_object_correctly_saved = Employee.objects.get(user__username=username)
-        self.assertEqual('bar', employee_object_correctly_saved.__str__())
 
 
 class EmployeeLevelFormTest(TestCase):

@@ -4,7 +4,7 @@ from django.views.generic import (
     CreateView, TemplateView
 )
 from users import forms
-from users.models import User, Employee
+from users.models import User, Boss, Employee
 
 
 class SignUpView(TemplateView):
@@ -23,7 +23,11 @@ class BossSignUpView(CreateView):
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
-        user = form.save()
+        user = form.save(commit=False)
+        user.is_boss = True
+        user.save()
+        Boss.objects.create(user=user)
+        form.save_m2m()
         login(self.request, user)
         return redirect('users:index-url')
 
@@ -65,9 +69,11 @@ class EmployeeSignUpView(CreateView):
         employee_level = forms.EmployeeLevelForm(request.POST)  #
 
         if form.is_valid() and employee_level.is_valid():
-            self.object = form.save()
+            self.object = form.save(commit=False)
+            self.object.is_employee = True
+            self.object.save()
+            Employee.objects.create(user=self.object)
             
-            # isinstance(cleaned_data, list) -> True
             level, = [f.cleaned_data['level'] for f in employee_level.forms]
             Employee.objects.filter(user=self.object).update(level=level)
             
@@ -84,15 +90,3 @@ class EmployeeSignUpView(CreateView):
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'employee'
         return super().get_context_data(**kwargs)
-
-
-
-# class DampSquib:
-#     my inlineform_factory pain :D
-#     AttributeError: 'TypedChoiceField' object has no attribute 'values'
-#     AttributeError: 'EmployeeSignUpView' object has no attribute 'object'
-#     ValueError: save() prohibited to prevent data loss due to unsaved related object 'user'.
-#     users.models.User.employee.RelatedObjectDoesNotExist: User has no employee.
-#     users.models.Employee.DoesNotExist: Employee matching query does not exist.
-#     AttributeError: Generic detail view EmployeeSignUpView must be called with either an object pk or a slug in the URLconf.
-#     etc
