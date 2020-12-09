@@ -18,10 +18,6 @@ class BossSignUpView(CreateView):
     form_class = forms.BossSignUpForm
     template_name = 'registration/signup_form.html'
 
-    def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'boss'
-        return super().get_context_data(**kwargs)
-
     def form_valid(self, form):
         user = form.save(commit=False)
         user.is_boss = True
@@ -72,10 +68,9 @@ class EmployeeSignUpView(CreateView):
             self.object = form.save(commit=False)
             self.object.is_employee = True
             self.object.save()
-            Employee.objects.create(user=self.object)
             
             level, = [f.cleaned_data['level'] for f in employee_level.forms]
-            Employee.objects.filter(user=self.object).update(level=level)
+            Employee.objects.create(user=self.object, level=level)
             
             login(self.request, self.object)
             return redirect('users:index-url')
@@ -87,6 +82,3 @@ class EmployeeSignUpView(CreateView):
             self.get_context_data(form=form, employee_level=employee_level)
         )
 
-    def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'employee'
-        return super().get_context_data(**kwargs)
