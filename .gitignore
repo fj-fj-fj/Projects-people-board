@@ -173,3 +173,4 @@ media/
 # !**/migrations
 # !**/migrations/__init__.py
 local.py
+.vs/
